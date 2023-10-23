@@ -1,0 +1,7 @@
+node_modules
+vendor
+dist
+.vscode
+.env
+*.pem
+.DS_STORE
