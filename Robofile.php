@@ -142,7 +142,7 @@ class RoboFile extends \Robo\Tasks {
 			->taskFilesystemStack()
 				->remove( $zip )
 			->taskPack( $zip )
-				->addDir( './', '_robo-working-dir' )
+				->addDir( $this->pluginSlug, '_robo-working-dir' )
 				->exclude( [ '.DS_Store' ] )
 			->run();
 	}
