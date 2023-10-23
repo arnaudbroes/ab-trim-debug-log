@@ -1,5 +1,5 @@
 {
-	"name": "arnaudbroes/ab-trim-debug-log",
+	"name": "arnaudbroes/ab-truncate-debug-log",
 	"description": "Simple plugin that trims the debug log when it becomes too large.",
 	"config": {
 		"bin-dir": "bin",
@@ -10,7 +10,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"abTrimDebugLog\\Plugin\\": "app/"
+			"abTruncateDebugLog\\Plugin\\": "app/"
 		}
 	},
 	"require-dev": {

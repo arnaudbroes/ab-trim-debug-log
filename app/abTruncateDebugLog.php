@@ -1,5 +1,5 @@
 <?php
-namespace abTrimDebugLog\Plugin {
+namespace abTruncateDebugLog\Plugin {
 	if ( ! defined( 'ABSPATH' ) ) {
 		exit;
 	}
@@ -9,7 +9,7 @@ namespace abTrimDebugLog\Plugin {
 	 *
 	 * @since 1.0.0
 	 */
-	class abTrimDebugLog {
+	class abTruncateDebugLog {
 		/**
 		 * Holds the singleton instance.
 		 *
@@ -29,7 +29,7 @@ namespace abTrimDebugLog\Plugin {
 		 *
 		 * @since 1.0.0
 		 *
-		 * @return abTrimDebugLog The instance.
+		 * @return abTruncateDebugLog The instance.
 		 */
 		public static function instance() : self {
 			if ( null === self::$instance || ! self::$instance instanceof self ) {
@@ -63,12 +63,12 @@ namespace abTrimDebugLog\Plugin {
 				'version' => 'Version'
 			];
 
-			$pluginInfo = get_file_data( AB_TRIM_DEBUG_LOG_FILE, $headers );
+			$pluginInfo = get_file_data( AB_TRUNCATE_DEBUG_LOG_FILE, $headers );
 
 			$constants = [
-				'AB_TRIM_DEBUG_LOG_URL'     => plugin_dir_url( AB_TRIM_DEBUG_LOG_FILE ),
-				'AB_TRIM_DEBUG_LOG_NAME'    => $pluginInfo['name'],
-				'AB_TRIM_DEBUG_LOG_VERSION' => $pluginInfo['version']
+				'AB_TRUNCATE_DEBUG_LOG_URL'     => plugin_dir_url( AB_TRUNCATE_DEBUG_LOG_FILE ),
+				'AB_TRUNCATE_DEBUG_LOG_NAME'    => $pluginInfo['name'],
+				'AB_TRUNCATE_DEBUG_LOG_VERSION' => $pluginInfo['version']
 			];
 
 			foreach ( $constants as $name => $value ) {
@@ -89,14 +89,14 @@ namespace abTrimDebugLog\Plugin {
 			];
 
 			foreach ( $dependencies as $path => $shouldRequire ) {
-				if ( ! file_exists( AB_TRIM_DEBUG_LOG_DIR . $path ) ) {
+				if ( ! file_exists( AB_TRUNCATE_DEBUG_LOG_DIR . $path ) ) {
 					// Something is not right.
 					status_header( 500 );
-					wp_die( esc_html__( 'Plugin is missing required dependencies. Please contact the developer for more information.', 'ab-trim-debug-log' ) );
+					wp_die( esc_html__( 'Plugin is missing required dependencies. Please contact the developer for more information.', 'ab-truncate-debug-log' ) );
 				}
 
 				if ( $shouldRequire ) {
-					require_once AB_TRIM_DEBUG_LOG_DIR . $path;
+					require_once AB_TRUNCATE_DEBUG_LOG_DIR . $path;
 				}
 			}
 		}
@@ -111,7 +111,7 @@ namespace {
 	/**
 	 * Returns singleton main class instance.
 	 */
-	function abTrimDebugLog() : abTrimDebugLog\Plugin\abTrimDebugLog {
-		return \abTrimDebugLog\Plugin\abTrimDebugLog::instance();
+	function abTruncateDebugLog() : abTruncateDebugLog\Plugin\abTruncateDebugLog {
+		return \abTruncateDebugLog\Plugin\abTruncateDebugLog::instance();
 	}
 }

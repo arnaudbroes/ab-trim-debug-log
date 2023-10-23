@@ -22,7 +22,7 @@ class RoboFile extends \Robo\Tasks {
 	 *
 	 * @var string
 	 */
-	private $pluginSlug = 'ab-trim-debug-log';
+	private $pluginSlug = 'ab-truncate-debug-log';
 
 	/**
 	 * The version number.

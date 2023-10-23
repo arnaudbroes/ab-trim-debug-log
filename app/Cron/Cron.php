@@ -1,5 +1,5 @@
 <?php
-namespace abTrimDebugLog\Plugin\Cron;
+namespace abTruncateDebugLog\Plugin\Cron;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -16,7 +16,7 @@ class Cron {
 	 *
 	 * @since 1.0.0
 	 */
-	private string $cronJobName = 'ab_trim_debug_log';
+	private string $cronJobName = 'ab_truncate_debug_log';
 
 	/**
 	 * Class constructor.
@@ -25,7 +25,7 @@ class Cron {
 	 */
 	public function __construct() {
 		add_action( 'init', [ $this, 'scheduleCronJob' ] );
-		add_action( 'ab_trim_debug_log', [ $this, 'trimDebugLog' ] );
+		add_action( 'ab_truncate_debug_log', [ $this, 'trimDebugLog' ] );
 	}
 
 	/**
@@ -34,8 +34,12 @@ class Cron {
 	 * @since 1.0.0
 	 */
 	public function scheduleCronJob() : void {
-		if ( ! wp_next_scheduled( 'ab_trim_debug_log' ) ) {
-			wp_schedule_event( time(), 'weekly', 'ab_trim_debug_log' );
+		if ( ! defined( 'WP_DEBUG' ) ) {
+			return;
+		}
+
+		if ( ! wp_next_scheduled( 'ab_truncate_debug_log' ) ) {
+			wp_schedule_event( time(), 'weekly', 'ab_truncate_debug_log' );
 		}
 	}
 
@@ -55,7 +59,10 @@ class Cron {
 		}
 
 		$fileSize         = filesize( $debugLogPath );
-		$fileSizeTreshold = apply_filters( 'ab_trim_debug_log_maximum_file_size', 100000000 ); // Default is 100 MB.
+		$fileSizeTreshold = apply_filters( 'ab_truncate_debug_log_max_size', 10 ); // Default is 10 MB.
+		$amountOfLines    = apply_filters( 'ab_truncate_debug_log_lines', 5000 ); // Default is 5,000 lines.
+
+		$fileSizeTreshold = $fileSizeTreshold * 1024 * 1024;
 		if ( $fileSize < $fileSizeTreshold ) {
 			return;
 		}
@@ -63,7 +70,13 @@ class Cron {
 		// First, attempt to use the tail command as this is the fastest approach.
 		if ( $this->doesCommandExist( 'tail' ) ) {
 			try {
-				shell_exec( sprintf( 'tail -n 1000 %s > debug.log.tmp', escapeshellarg( $debugLogPath ) ) );
+				shell_exec(
+					sprintf(
+						'tail -n %d %s > debug.log.tmp',
+						escapeshellarg( $amountOfLines ),
+						escapeshellarg( $debugLogPath )
+					)
+				);
 
 				unlink( $debugLogPath );
 				rename( WP_CONTENT_DIR . '/debug.log.tmp', $debugLogPath );
@@ -81,7 +94,7 @@ class Cron {
 		$fp = fopen( $debugLogPath, 'r' );
 
 		// Initialize the circular buffer.
-		$buffer      = array_fill( 0, 1000, '' );
+		$buffer      = array_fill( 0, $amountOfLines, '' );
 		$bufferIndex = 0;
 
 		// Iterate over each line.
