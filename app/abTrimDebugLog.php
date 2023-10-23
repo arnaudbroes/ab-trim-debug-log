@@ -1,5 +1,5 @@
 <?php
-namespace wpPluginBoilerplate\Plugin {
+namespace abTrimDebugLog\Plugin {
 	if ( ! defined( 'ABSPATH' ) ) {
 		exit;
 	}
@@ -9,13 +9,13 @@ namespace wpPluginBoilerplate\Plugin {
 	 *
 	 * @since 1.0.0
 	 */
-	class wpPluginBoilerplate {
+	class abTrimDebugLog {
 		/**
 		 * Holds the singleton instance.
 		 *
 		 * @since 1.0.0
 		 *
-		 * @var wpPluginBoilerplate\Plugin\wpPluginBoilerplate
+		 * @var abTrimDebugLog\Plugin\abTrimDebugLog
 		 */
 		private static $instance;
 
@@ -24,7 +24,7 @@ namespace wpPluginBoilerplate\Plugin {
 		 *
 		 * @since 1.0.0
 		 *
-		 * @var wpPluginBoilerplate\Plugin\Config\Config
+		 * @var abTrimDebugLog\Plugin\Config\Config
 		 */
 		public $config = null;
 
@@ -33,7 +33,7 @@ namespace wpPluginBoilerplate\Plugin {
 		 *
 		 * @since 1.0.0
 		 *
-		 * @var wpPluginBoilerplate\Plugin\Utils\Utils
+		 * @var abTrimDebugLog\Plugin\Utils\Utils
 		 */
 		public $utils = null;
 
@@ -42,7 +42,7 @@ namespace wpPluginBoilerplate\Plugin {
 		 *
 		 * @since 1.0.0
 		 *
-		 * @var wpPluginBoilerplate\Plugin\Admin\Admin
+		 * @var abTrimDebugLog\Plugin\Admin\Admin
 		 */
 		public $admin = null;
 
@@ -51,7 +51,7 @@ namespace wpPluginBoilerplate\Plugin {
 		 *
 		 * @since 1.0.0
 		 *
-		 * @var wpPluginBoilerplate\Plugin\Api\Api
+		 * @var abTrimDebugLog\Plugin\Api\Api
 		 */
 		public $api = null;
 
@@ -69,7 +69,7 @@ namespace wpPluginBoilerplate\Plugin {
 		 *
 		 * @since 1.0.0
 		 *
-		 * @return wpPluginBoilerplate The instance.
+		 * @return abTrimDebugLog The instance.
 		 */
 		public static function instance() {
 			if ( null === self::$instance || ! self::$instance instanceof self ) {
@@ -111,12 +111,12 @@ namespace wpPluginBoilerplate\Plugin {
 				'version' => 'Version'
 			];
 
-			$pluginInfo = get_file_data( WP_PLUGIN_BOILERPLATE_FILE, $headers );
+			$pluginInfo = get_file_data( AB_TRIM_DEBUG_LOG_FILE, $headers );
 
 			$constants = [
-				'WP_PLUGIN_BOILERPLATE_URL'     => plugin_dir_url( WP_PLUGIN_BOILERPLATE_FILE ),
-				'WP_PLUGIN_BOILERPLATE_NAME'    => $pluginInfo['name'],
-				'WP_PLUGIN_BOILERPLATE_VERSION' => $pluginInfo['version']
+				'AB_TRIM_DEBUG_LOG_URL'     => plugin_dir_url( AB_TRIM_DEBUG_LOG_FILE ),
+				'AB_TRIM_DEBUG_LOG_NAME'    => $pluginInfo['name'],
+				'AB_TRIM_DEBUG_LOG_VERSION' => $pluginInfo['version']
 			];
 
 			foreach ( $constants as $name => $value ) {
@@ -139,14 +139,14 @@ namespace wpPluginBoilerplate\Plugin {
 			];
 
 			foreach ( $dependencies as $path => $shouldRequire ) {
-				if ( ! file_exists( WP_PLUGIN_BOILERPLATE_DIR . $path ) ) {
+				if ( ! file_exists( AB_TRIM_DEBUG_LOG_DIR . $path ) ) {
 					// Something is not right.
 					status_header( 500 );
-					wp_die( esc_html__( 'Plugin is missing required dependencies. Please contact the developer for more information.', 'wp-plugin-boilerplate' ) );
+					wp_die( esc_html__( 'Plugin is missing required dependencies. Please contact the developer for more information.', 'ab-trim-debug-log' ) );
 				}
 
 				if ( $shouldRequire ) {
-					require_once WP_PLUGIN_BOILERPLATE_DIR . $path;
+					require_once AB_TRIM_DEBUG_LOG_DIR . $path;
 				}
 			}
 		}
@@ -159,11 +159,11 @@ namespace wpPluginBoilerplate\Plugin {
 		 * @return void
 		 */
 		private function checkIsDev() {
-			if ( ! file_exists( WP_PLUGIN_BOILERPLATE_DIR . '/.env' ) ) {
+			if ( ! file_exists( AB_TRIM_DEBUG_LOG_DIR . '/.env' ) ) {
 				return;
 			}
 
-			$dotenv = \Dotenv\Dotenv::createUnsafeImmutable( WP_PLUGIN_BOILERPLATE_DIR, '/.env' );
+			$dotenv = \Dotenv\Dotenv::createUnsafeImmutable( AB_TRIM_DEBUG_LOG_DIR, '/.env' );
 			$dotenv->load();
 
 			$this->isDev = getenv( 'VITE_DEV_SERVER_DOMAIN' ) ? true : false;
@@ -179,9 +179,9 @@ namespace {
 	/**
 	 * Returns singleton main class instance.
 	 *
-	 * @return wpPluginBoilerplate The instance.
+	 * @return abTrimDebugLog The instance.
 	 */
-	function wpb() {
-		return \wpPluginBoilerplate\Plugin\wpPluginBoilerplate::instance();
+	function abTrimDebugLog() {
+		return \abTrimDebugLog\Plugin\abTrimDebugLog::instance();
 	}
 }

@@ -22,7 +22,8 @@ class RoboFile extends \Robo\Tasks {
 	 *
 	 * @var string
 	 */
-	private $pluginSlug = 'wp-plugin-boilerplate';
+	private $pluginSlug = 'ab-trim-debug-log';
+
 	/**
 	 * The version number.
 	 *
@@ -47,11 +48,6 @@ class RoboFile extends \Robo\Tasks {
 
 		$this->deleteCache();
 
-		// TODO: Consider validating the .env file.
-
-		$this->updateNpmDependencies();
-		$this->compileAssets();
-
 		$this->deleteTempDirs();
 		$this->moveFilesToTempDirs();
 		$this->createArchive();
@@ -69,34 +65,6 @@ class RoboFile extends \Robo\Tasks {
 		$this->collectionBuilder()
 			->taskDeleteDir( './node_modules/.cache' )
 			->taskDeleteDir( './node_modules/.vite' )
-			->run();
-	}
-
-	/**
-	 * Updates the NPM dependencies.
-	 *
-	 * @return void
-	 */
-	private function updateNpmDependencies() {
-		$this->info( 'Updating NPM dependencies' );
-
-		$this->taskExecStack()
-			->stopOnFail()
-			->exec( "bun update --silent" )
-			->run();
-	}
-
-	/**
-	 * Compiles the assets.
-	 *
-	 * @return void
-	 */
-	private function compileAssets() {
-		$this->info( 'Compiling the assets' );
-
-		$this->taskExecStack()
-			->stopOnFail()
-			->exec( "bun run --silent build" )
 			->run();
 	}
 
@@ -119,10 +87,8 @@ class RoboFile extends \Robo\Tasks {
 	 * @return void
 	 */
 	private function moveFilesToTempDirs() {
-		// TODO: Update name of main plugin file here for new plugins.
 		$this->collectionBuilder()
 			->taskCopyDir( [ './app' => '_robo-temp/app' ] )
-			->taskCopyDir( [ './dist' => '_robo-temp/dist' ] )
 			->taskFilesystemStack()
 				->copy( "./{$this->pluginSlug}.php", "_robo-temp/{$this->pluginSlug}.php" )
 				->copy( './composer.json', '_robo-temp/composer.json' )
@@ -162,11 +128,9 @@ class RoboFile extends \Robo\Tasks {
 		$collection  = $this->collectionBuilder();
 		$workingPath = $collection->workDir( '_robo-working-dir' );
 
-		// TODO: Update name of main plugin file here for new plugins.
 		$collection
 			->taskCopyDir( [ '_robo-temp/app' => "{$workingPath}/app" ] )
 			->taskCopyDir( [ '_robo-temp/vendor' => "{$workingPath}/vendor" ] )
-			->taskCopyDir( [ '_robo-temp/dist' => "{$workingPath}/dist" ] )
 			->taskFilesystemStack()
 				->copy( "_robo-temp/{$this->pluginSlug}.php", "{$workingPath}/{$this->pluginSlug}.php" )
 			->run();

@@ -1,5 +1,5 @@
 <?php
-namespace wpPluginBoilerplate\Plugin\Utils;
+namespace abTrimDebugLog\Plugin\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -12,20 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class Utils {
 	/**
-	 * Holds the assets class.
-	 *
-	 * @since 1.0.0
-	 *
-	 * @var wpPluginBoilerplate\Plugin\Utils\Assets
-	 */
-	public $assets = null;
-
-	/**
 	 * Holds the helpers class.
 	 *
 	 * @since 1.0.0
 	 *
-	 * @var wpPluginBoilerplate\Plugin\Utils\Helpers
+	 * @var abTrimDebugLog\Plugin\Utils\Helpers
 	 */
 	public $helpers = null;
 
@@ -35,7 +26,6 @@ class Utils {
 	 * @since 1.0.0
 	 */
 	public function __construct() {
-		$this->assets  = new Assets;
 		$this->helpers = new Helpers;
 	}
 }

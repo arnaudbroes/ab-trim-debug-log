@@ -1,6 +1,6 @@
 {
-	"name": "arnaudbroes/wp-plugin-boilerplate",
-	"description": "Personal boilerplate for WordPress plugins.",
+	"name": "arnaudbroes/ab-trim-debug-log",
+	"description": "Simple plugin that trims the debug log when it becomes too large.",
 	"config": {
 		"bin-dir": "bin",
 		"preferred-install": "dist",
@@ -10,7 +10,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"wpPluginBoilerplate\\Plugin\\": "app/"
+			"abTrimDebugLog\\Plugin\\": "app/"
 		}
 	},
 	"require-dev": {

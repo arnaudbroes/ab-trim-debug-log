@@ -1,5 +1,5 @@
 <?php
-namespace wpPluginBoilerplate\Plugin\Utils;
+namespace abTrimDebugLog\Plugin\Utils;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -10,6 +10,4 @@ if ( ! defined( 'ABSPATH' ) ) {
  * 
  * @since 1.0.0
  */
-class Helpers {
-	use Traits\Debug;
-}
+class Helpers {}
