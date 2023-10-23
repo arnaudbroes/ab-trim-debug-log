@@ -9,6 +9,9 @@
  * Author: Broes Consulting
  * Author URI: https://broes.consulting
  * Text Domain: ab-trim-debug-log
+ *
+ * License: GPL-3.0-or-later
+ * URI: http://www.gnu.org/licenses/gpl-3.0.html
  */
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
