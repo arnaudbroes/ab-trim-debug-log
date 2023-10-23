@@ -1,14 +1,3 @@
-=== AB Truncate Debug Log ===
-Contributors: arnaudbroes
-Tags: debug, debug log, wp debug, wp debug log, maintenance
-Requires at least: 4.9
-Tested up to: 6.3.1
-Stable tag: 1.0.0
-Requires PHP: 7.4
-License: GPLv3 or later
-License URI: https://www.gnu.org/licenses/gpl-3.0.html
-
-Simple plugin to prevent the WP debug log file from growing too large.
 
 == Description ==
 
@@ -20,8 +9,6 @@ Two filters can be used to change the default values:
 * `ab_truncate_debug_log_max_size` to change the maximum size of the debug log file (in MB)
 * `ab_truncate_debug_log_lines` to change the number of lines the debug log file is truncated to.
 
-== Changelog ==
+== Development ==
 
-**New in Version 1.0.0**
-
-Initial release.
+To build this plugin in a local environment, just install the depencies using Composer in order to generate the autoload files.
