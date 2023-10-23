@@ -14,55 +14,15 @@ namespace abTrimDebugLog\Plugin {
 		 * Holds the singleton instance.
 		 *
 		 * @since 1.0.0
-		 *
-		 * @var abTrimDebugLog\Plugin\abTrimDebugLog
 		 */
 		private static $instance;
 
 		/**
-		 * Holds the Config class.
+		 * Holds the Cron class.
 		 *
 		 * @since 1.0.0
-		 *
-		 * @var abTrimDebugLog\Plugin\Config\Config
 		 */
-		public $config = null;
-
-		/**
-		 * Holds the Utils class.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @var abTrimDebugLog\Plugin\Utils\Utils
-		 */
-		public $utils = null;
-
-		/**
-		 * Holds the Admin class.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @var abTrimDebugLog\Plugin\Admin\Admin
-		 */
-		public $admin = null;
-
-		/**
-		 * Holds the API class.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @var abTrimDebugLog\Plugin\Api\Api
-		 */
-		public $api = null;
-
-		/**
-		 * Holds the dev environment status.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @var bool
-		 */
-		public $isDev = false;
+		public Cron\Cron $cron;
 
 		/**
 		 * Returns singleton main class instance.
@@ -71,7 +31,7 @@ namespace abTrimDebugLog\Plugin {
 		 *
 		 * @return abTrimDebugLog The instance.
 		 */
-		public static function instance() {
+		public static function instance() : self {
 			if ( null === self::$instance || ! self::$instance instanceof self ) {
 				self::$instance = new self();
 				self::$instance->init();
@@ -84,28 +44,20 @@ namespace abTrimDebugLog\Plugin {
 		 * Initializes the plugin.
 		 * 
 		 * @since 1.0.0
-		 *
-		 * @return void
 		 */
-		private function init() {
+		private function init() : void {
 			$this->defineConstants();
 			$this->includeDependencies();
-			$this->checkIsDev();
 
-			$this->config = new Config\Config;
-			$this->utils  = new Utils\Utils;
-			$this->admin  = new Admin\Admin;
-			$this->api    = new Api\Api;
+			$this->cron = new Cron\Cron;
 		}
 
 		/**
 		 * Sets all plugin constants.
 		 *
 		 * @since 1.0.0
-		 *
-		 * @return void
 		 */
-		private function defineConstants() {
+		private function defineConstants() : void {
 			$headers = [
 				'name'    => 'Plugin Name',
 				'version' => 'Version'
@@ -130,10 +82,8 @@ namespace abTrimDebugLog\Plugin {
 		 * Include all dependencies.
 		 *
 		 * @since 1.0.0
-		 *
-		 * @return void
 		 */
-		private function includeDependencies() {
+		private function includeDependencies() : void {
 			$dependencies = [
 				'/vendor/autoload.php' => true
 			];
@@ -150,24 +100,6 @@ namespace abTrimDebugLog\Plugin {
 				}
 			}
 		}
-
-		/**
-		 * Checks if the plugin is oeprating in a dev environment.
-		 *
-		 * @since 1.0.0
-		 *
-		 * @return void
-		 */
-		private function checkIsDev() {
-			if ( ! file_exists( AB_TRIM_DEBUG_LOG_DIR . '/.env' ) ) {
-				return;
-			}
-
-			$dotenv = \Dotenv\Dotenv::createUnsafeImmutable( AB_TRIM_DEBUG_LOG_DIR, '/.env' );
-			$dotenv->load();
-
-			$this->isDev = getenv( 'VITE_DEV_SERVER_DOMAIN' ) ? true : false;
-		}
 	}
 };
 
@@ -178,10 +110,8 @@ namespace {
 
 	/**
 	 * Returns singleton main class instance.
-	 *
-	 * @return abTrimDebugLog The instance.
 	 */
-	function abTrimDebugLog() {
+	function abTrimDebugLog() : abTrimDebugLog\Plugin\abTrimDebugLog {
 		return \abTrimDebugLog\Plugin\abTrimDebugLog::instance();
 	}
 }

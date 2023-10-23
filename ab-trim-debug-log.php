@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: AB Trim Debug Log
- * Plugin URI: https://broes.consulting
+ * Plugin URI: https://github.com/arnaudbroes/ab-trim-debug-log
  * Description: Simple plugin that trims the debug log when it becomes too large.
  * Version: 1.0.0
  * Requires at least: 4.9.0
