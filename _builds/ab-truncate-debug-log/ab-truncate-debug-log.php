@@ -2,7 +2,7 @@
 /**
  * Plugin Name: AB Truncate Debug Log
  * Plugin URI: https://github.com/arnaudbroes/ab-truncate-debug-log
- * Description: Simple plugin that trims the debug log when it becomes too large.
+ * Description: Simple plugin to prevent the WP debug log file from growing too large.
  * Version: 1.0.0
  * Requires at least: 4.9.0
  * Requires PHP: 7.4
