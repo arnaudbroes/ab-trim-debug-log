@@ -1,0 +1,19 @@
+{
+	"name": "arnaudbroes/ab-truncate-debug-log",
+	"description": "Simple plugin that trims the debug log when it becomes too large.",
+	"config": {
+		"bin-dir": "bin",
+		"preferred-install": "dist",
+		"platform": {
+			"php": "7.4"
+		}
+	},
+	"autoload": {
+		"psr-4": {
+			"abTruncateDebugLog\\Plugin\\": "app/"
+		}
+	},
+	"require-dev": {
+		"consolidation/robo": "^4.0.4"
+	}
+}
